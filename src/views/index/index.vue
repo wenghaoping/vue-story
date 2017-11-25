@@ -35,14 +35,15 @@
     props: [],
     data () {
       return {
-        loading: false
+        loading: false,
+        plans: []
       };
     },
     computed: {
-      plans () {
+      /* plans () {
         // 从store中取出数据
         return this.$store.state.list;
-      }
+      } */
     },
     mounted () {},
     // 组件
@@ -50,15 +51,50 @@
     methods: {
       deletePlan (plan, index) {
         // 删除该事件
-        this.$store.dispatch('deletePlan', index);
+//        this.$store.dispatch('deletePlan', index);
+        let id = plan._id;
+        this.$http.post(this.URL.deletePlan, {_id: id})
+          .then(res => {
+            let data = res.data;
+            if (data.code === -3) {
+              alert(data.msg);
+            } else {
+              this.$notify({
+                title: '成功',
+                message: '删除成功',
+                type: 'success'
+              });
+              this.getToList();
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
       },
       creatPlan () {
           // 路由去创建页面
         this.$router.push({name: 'creatPlan', query: {}});
+      },
+      getToList () {
+        this.$http.post(this.URL.getList)
+          .then(res => {
+            console.log(res);
+            let data = res.data;
+            if (data.code === -3) {
+              alert(data.msg);
+            } else {
+              this.plans = data.result;
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }
     },
     // 当dom一创建时
-    created () {},
+    created () {
+      this.getToList();
+    },
     watch: {}
   };
 </script>

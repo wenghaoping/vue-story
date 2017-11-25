@@ -52,8 +52,26 @@
             date: CurentTime() // 使用获取当前时间工具
           };
           // 添加计划
-          this.$store.dispatch('savePlan', plan);
-          this.$router.go(-1);
+          this.$http.post(this.URL.creat, plan)
+            .then(res => {
+              console.log(res);
+              let data = res.data;
+              if (data.code === -1) {
+                alert(data.msg);
+              } else {
+//                this.$store.dispatch('savePlan', plan);
+                this.$notify({
+                  title: '成功',
+                  message: '创建成功',
+                  type: 'success'
+                });
+                this.$router.go(-1);
+              }
+              this.loading = false;
+            })
+            .catch(err => {
+              console.log(err);
+            });
         }
       },
       // 当dom一创建时
