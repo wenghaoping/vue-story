@@ -8,6 +8,7 @@ import ElementUI from 'element-ui'; // element引入
 import 'element-ui/lib/theme-chalk/index.css'; // elelemtCSS
 import App from './App.vue'; // 最上层组件
 import 'bootstrap/dist/css/bootstrap.css'; // boostrap样式
+import 'mavon-editor/dist/css/index.css'; // markdown样式
 import axios from './utils/request';// axios请求配置
 import URL_ from './api/url';// URL请求地址汇总
 Vue.prototype.URL = URL_;

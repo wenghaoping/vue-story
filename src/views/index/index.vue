@@ -27,16 +27,21 @@
         </div>
       </li>
     </ul>
+    <mavonEditor v-model="article.main" default_open="preview" :editable="false"
+                 :toolbarsFlag="false"
+                 :subfield="false" :ishljs = "true"></mavonEditor>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import { mavonEditor } from 'mavon-editor';
   export default {
     props: [],
     data () {
       return {
         loading: false,
-        plans: []
+        plans: [],
+        article: {}
       };
     },
     computed: {
@@ -47,7 +52,7 @@
     },
     mounted () {},
     // 组件
-    components: {},
+    components: { mavonEditor },
     methods: {
       deletePlan (plan, index) {
         // 删除该事件
@@ -89,11 +94,27 @@
           .catch(err => {
             console.log(err);
           });
+      },
+      getArticleDetail () {
+        this.loading = true;
+        this.$http.post(this.URL.getArticleDetail, {
+          art_id: 20,
+          edit: 0
+        })
+          .then(res => {
+            let data = res.data.result[0];
+            this.article = data;
+            document.title = data.title;
+            this.loading = false;
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }
     },
     // 当dom一创建时
     created () {
-      this.getToList();
+      this.getArticleDetail();
     },
     watch: {}
   };
