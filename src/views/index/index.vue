@@ -98,7 +98,7 @@
       getArticleDetail () {
         this.loading = true;
         this.$http.post(this.URL.getArticleDetail, {
-          art_id: 20,
+          art_id: 14,
           edit: 0
         })
           .then(res => {
