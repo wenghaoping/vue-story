@@ -27,9 +27,9 @@
         </div>
       </li>
     </ul>
-    <mavonEditor v-model="article.main" default_open="preview" :editable="false"
+<!--    <mavonEditor v-model="article.main" default_open="preview" :editable="false"
                  :toolbarsFlag="false"
-                 :subfield="false" :ishljs = "true"></mavonEditor>
+                 :subfield="false" :ishljs = "true"></mavonEditor>-->
   </div>
 </template>
 
@@ -114,7 +114,7 @@
     },
     // 当dom一创建时
     created () {
-      this.getArticleDetail();
+      this.getToList();
     },
     watch: {}
   };
